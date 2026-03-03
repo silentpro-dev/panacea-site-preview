@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panacea International</title>
+<link rel="icon" type="image/png" href="PI_Logo-Symbol(Gold).png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-card: #141414;
+  --text-primary: #e8e8e8;
+  --text-secondary: #9a9a9a;
+  --text-muted: #666666;
+  --accent: #c5a04e;
+  --accent-dim: #8a7034;
+  --accent-glow: rgba(197,160,78,0.15);
+  --border: #2a2a2a;
+  --border-light: #333333;
+  --danger: #8b1a1a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 3px; }
+
+/* ═══════════════════ NAVIGATION ═══════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 60px;
+  height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(197,160,78,0.1);
+  transition: all 0.4s;
+}
+.nav.scrolled { height: 64px; background: rgba(10,10,10,0.95); }
+.nav-logo img { height: 80px; transition: height 0.4s; }
+.nav.scrolled .nav-logo img { height: 64px; }
+.nav-links { display: flex; gap: 36px; align-items: center; }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600; font-size: 13px;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--bg-primary) !important;
+  background: var(--accent);
+  padding: 10px 28px;
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  transition: all 0.3s;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: #d4af5a; transform: translateY(-1px); }
+
+/* Mobile nav */
+.nav-toggle { display: none; cursor: pointer; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--text-primary); margin: 5px 0; transition: 0.3s; }
+
+/* ═══════════════════ HERO ═══════════════════ */
+.hero {
+  position: relative;
+  height: 100vh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: 
+    linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.1) 40%, rgba(10,10,10,0.7) 80%, rgba(10,10,10,1) 100%),
+    linear-gradient(270deg, rgba(197,160,78,0.05) 0%, transparent 50%),
+    url('https://images.unsplash.com/photo-1579912179917-5f2dba730083?w=1920&q=80') center/cover no-repeat;
+  filter: grayscale(40%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: 
+    linear-gradient(rgba(197,160,78,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197,160,78,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  max-width: 1000px;
+  padding: 0 40px;
+  animation: heroFadeIn 1.2s ease-out;
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+  padding: 8px 20px;
+  border: 1px solid rgba(197,160,78,0.3);
+  animation: heroFadeIn 1.2s ease-out 0.2s both;
+}
+.hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: heroFadeIn 1.2s ease-out 0.4s both;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+  animation: heroFadeIn 1.2s ease-out 0.6s both;
+}
+.hero-actions {
+  display: flex; gap: 20px;
+  justify-content: center; flex-wrap: wrap;
+  animation: heroFadeIn 1.2s ease-out 0.8s both;
+}
+.btn-primary {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600; font-size: 14px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--bg-primary);
+  background: var(--accent);
+  padding: 14px 40px;
+  border: none; cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.btn-primary:hover { background: #d4af5a; transform: translateY(-2px); }
+.btn-secondary {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600; font-size: 14px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-primary);
+  background: transparent;
+  padding: 14px 40px;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: heroFadeIn 1.2s ease-out 1s both;
+}
+.hero-scroll span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.hero-scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ═══════════════════ SECTION STYLES ═══════════════════ */
+.section {
+  padding: 120px 60px;
+  position: relative;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 4vw, 56px);
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+.section-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ═══════════════════ MISSION ═══════════════════ */
+.mission { background: var(--bg-secondary); }
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+.mission-visual {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.mission-visual img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(30%);
+}
+.mission-visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  border: 1px solid rgba(197,160,78,0.2);
+  pointer-events: none;
+}
+.mission-visual .corner {
+  position: absolute;
+  width: 20px; height: 20px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+.corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.mission-content h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 44px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.mission-content p {
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+.mission-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.stat-item { text-align: center; }
+.stat-number {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 42px;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* ═══════════════════ CAPABILITIES ═══════════════════ */
+.capabilities { background: var(--bg-primary); }
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.cap-card {
+  background: var(--bg-card);
+  padding: 48px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+.cap-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+.cap-card:hover::before { transform: scaleX(1); }
+.cap-card:hover { background: var(--bg-tertiary); }
+.cap-icon {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+}
+.cap-icon svg { width: 32px; height: 32px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+.cap-number {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 72px;
+  position: absolute; top: -20px; right: 20px;
+  color: rgba(197,160,78,0.05);
+  line-height: 1;
+}
+.cap-card h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+.cap-card p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.cap-card .cap-expand {
+  margin-top: 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent);
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.3s;
+}
+.cap-card:hover .cap-expand { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════ APPROACH (How We Work) ═══════════════════ */
+.approach { background: var(--bg-secondary); }
+.approach-timeline {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+.approach-timeline::before {
+  content: '';
+  position: absolute;
+  left: 32px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), var(--border), transparent);
+}
+.timeline-item {
+  display: flex; gap: 48px;
+  margin-bottom: 64px;
+  position: relative;
+  align-items: flex-start;
+}
+.timeline-marker {
+  flex-shrink: 0;
+  width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.timeline-marker::before {
+  content: '';
+  position: absolute;
+  width: 12px; height: 12px;
+  background: var(--accent);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+.timeline-marker span {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 24px;
+  color: var(--accent);
+  position: absolute;
+  opacity: 0;
+}
+.timeline-content h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 28px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.timeline-content p {
+  font-weight: 300; font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* ═══════════════════ TEAM ═══════════════════ */
+.team { background: var(--bg-primary); }
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.team-card {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: pointer;
+}
+.team-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(60%);
+  transition: all 0.5s;
+}
+.team-card:hover img { filter: grayscale(20%); transform: scale(1.05); }
+.team-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 40%, transparent 70%);
+  padding: 24px;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  transition: all 0.4s;
+}
+.team-card:hover .team-overlay {
+  background: linear-gradient(to top, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.2) 100%);
+}
+.team-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 20px;
+  text-transform: uppercase;
+}
+.team-role {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 4px;
+}
+.team-bio {
+  font-size: 13px; font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 12px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+.team-card:hover .team-bio { max-height: 120px; }
+
+/* ═══════════════════ DIFFERENTIATORS ═══════════════════ */
+.diff { background: var(--bg-secondary); }
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.diff-item {
+  padding: 48px;
+  background: var(--bg-card);
+  position: relative;
+  overflow: hidden;
+}
+.diff-item::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--accent);
+  transition: height 0.5s;
+}
+.diff-item:hover::before { height: 100%; }
+.diff-item h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 12px;
+}
+.diff-item h4::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--accent);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  flex-shrink: 0;
+}
+.diff-item p {
+  font-size: 14px; font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding-left: 20px;
+}
+
+/* ═══════════════════ CONTACT / CTA ═══════════════════ */
+.contact {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+.contact::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(197,160,78,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(197,160,78,0.03) 0%, transparent 60%);
+}
+.contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  position: relative;
+}
+.contact-info h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 44px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.contact-info p {
+  font-weight: 300; font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.contact-details { display: flex; flex-direction: column; gap: 20px; }
+.contact-detail {
+  display: flex; align-items: center; gap: 16px;
+}
+.contact-detail-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border);
+}
+.contact-detail-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+.contact-detail-text span {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.contact-detail-text a, .contact-detail-text p {
+  font-size: 15px; color: var(--text-primary);
+  text-decoration: none;
+  margin: 0;
+}
+
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.form-group input, .form-group select, .form-group textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--accent);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-submit {
+  align-self: flex-start;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600; font-size: 14px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--bg-primary);
+  background: var(--accent);
+  padding: 14px 48px;
+  border: none; cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: all 0.3s;
+}
+.form-submit:hover { background: #d4af5a; transform: translateY(-2px); }
+
+/* ═══════════════════ FOOTER ═══════════════════ */
+.footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 60px 60px 30px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.footer-brand img { height: 40px; margin-bottom: 16px; }
+.footer-brand p { font-size: 14px; font-weight: 300; color: var(--text-muted); line-height: 1.6; max-width: 300px; }
+.footer-col h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.footer-col a {
+  display: block;
+  font-size: 14px; font-weight: 300;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--text-primary); }
+.footer-bottom {
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p { font-size: 12px; color: var(--text-muted); }
+.footer-certs { display: flex; gap: 16px; align-items: center; }
+.footer-cert {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+}
+
+/* ═══════════════════ RESPONSIVE ═══════════════════ */
+@media (max-width: 1024px) {
+  .section { padding: 80px 30px; }
+  .nav { padding: 0 30px; }
+  .mission-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cap-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .cap-grid { grid-template-columns: 1fr; }
+  .diff-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .mission-stats { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
+
+/* ═══════════════════ ANIMATIONS ═══════════════════ */
+.fade-in {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <img src="PI_Logo(Gold-Transparent).png" alt="Panacea International Logo" height="56" loading="eager" />
+  </div>
+  <div class="nav-links">
+    <a href="#mission">Mission</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#approach">Approach</a>
+    <a href="#team">Team</a>
+    <a href="#differentiators">Why Us</a>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </div>
+  <div class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Veteran-Owned &bull; SOF-Qualified Cadre</div>
+    <h1>Forging <span class="accent">Decisive</span><br>Advantage.</h1>
+    <p class="hero-sub">Panacea International delivers full-spectrum special operations training, advisory services, and capability development for the United States Army and allied<br>Special Operations Forces worldwide.</p>
+    <div class="hero-actions">
+      <a href="#capabilities" class="btn-primary">Explore Capabilities</a>
+      <a href="#contact" class="btn-secondary">Request Briefing</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section mission" id="mission">
+  <div class="mission-grid">
+    <div class="mission-visual fade-in">
+      <img src="PI_Site-Mission.jpeg" alt="Special Operations Training">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+    </div>
+    <div class="mission-content fade-in">
+      <div class="section-label">Our Mission</div>
+      <h2>Purpose-Built for the<br>Modern Battlespace</h2>
+      <p>Panacea International was founded by career special operations professionals who recognized a critical gap in advanced tactical training and operational advisory services available to SOF units.</p>
+      <p>We provide end-to-end solutions — from curriculum development and live-fire instruction to operational planning support and force modernization consulting — tailored to the unique demands of today's threat environment.</p>
+      <div class="mission-stats">
+        <div class="stat-item">
+          <div class="stat-number">60+</div>
+          <div class="stat-label">Years Combined SOF Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Countries Operated</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">SOF-Qualified Cadre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="section capabilities" id="capabilities">
+  <div class="section-header fade-in">
+    <div class="section-label">What We Do</div>
+    <div class="section-title">Full-Spectrum Special Operations</div>
+    <p class="section-desc">Comprehensive training and advisory solutions built on decades of real-world special operations experience.</p>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-card fade-in">
+      <div class="cap-number">01</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <h3>Advanced Marksmanship &<br>Close Quarters Battle</h3>
+      <p>Progressive live-fire training programs from precision rifle to CQB assault, designed to build and sustain combat-ready proficiency in individual and unit-level firearms employment.</p>
+      <!-- <div class="cap-expand">Learn More →</div> -->
+    </div>
+    <div class="cap-card fade-in">
+      <div class="cap-number">02</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Small Unit Tactics &<br>Mission Planning</h3>
+      <p>Tactical training in reconnaissance, direct action, special reconnaissance, and unconventional warfare methodologies aligned with current ARSOF doctrine and TTPs.</p>
+      <!-- <div class="cap-expand">Learn More →</div> -->
+    </div>
+    <div class="cap-card fade-in">
+      <div class="cap-number">03</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Partner Force<br>Development</h3>
+      <p>Full-spectrum training programs for allied and partner nation forces, from basic soldiering skills to advanced SOF selection and assessment program development.</p>
+      <!-- <div class="cap-expand">Learn More →</div> -->
+    </div>
+    <div class="cap-card fade-in">
+      <div class="cap-number">04</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Operational Planning &<br>Advisory Services</h3>
+      <p>Embedded advisory support for mission planning, operational design, intelligence integration, and after-action review processes at the team through battalion level.</p>
+      <!-- <div class="cap-expand">Learn More →</div> -->
+    </div>
+    <div class="cap-card fade-in">
+      <div class="cap-number">05</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
+      <h3>Combat Medical &<br>TCCC Training</h3>
+      <p>Tactical Combat Casualty Care (TCCC) and prolonged field care training delivered by combat-experienced 18D Special Forces Medical Sergeants and SOF physician assistants.</p>
+      <!-- <div class="cap-expand">Learn More →</div> -->
+    </div>
+    <div class="cap-card fade-in">
+      <div class="cap-number">06</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h3>Force Modernization &<br>Capability Assessment</h3>
+      <p>Technology integration, equipment evaluation, and doctrinal recommendations to enhance SOF unit capabilities and interoperability in joint and combined environments.</p>
+      <!-- <div class="cap-expand">Learn More →</div> -->
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section approach" id="approach">
+  <div class="section-header fade-in">
+    <div class="section-label">How We Work</div>
+    <div class="section-title">Our Approach</div>
+    <p class="section-desc">Every engagement follows a proven, methodical framework that ensures measurable results and sustained readiness improvement.</p>
+  </div>
+  <div class="approach-timeline">
+    <div class="timeline-item fade-in">
+      <div class="timeline-marker"><span>01</span></div>
+      <div class="timeline-content">
+        <h3>Assess</h3>
+        <p>We conduct comprehensive needs assessments — evaluating current capabilities, identifying gaps, and establishing measurable performance baselines against mission requirements and doctrinal standards.</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-marker"><span>02</span></div>
+      <div class="timeline-content">
+        <h3>Design</h3>
+        <p>Our cadre develops tailored programs of instruction, training plans, and resource requirements that directly address identified gaps while integrating seamlessly with unit training calendars.</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-marker"><span>03</span></div>
+      <div class="timeline-content">
+        <h3>Execute</h3>
+        <p>We deliver immersive, scenario-driven training that progressively builds proficiency — from fundamentals through advanced collective tasks — with real-time performance coaching and feedback.</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-marker"><span>04</span></div>
+      <div class="timeline-content">
+        <h3>Sustain</h3>
+        <p>Post-engagement support includes comprehensive after-action reviews, sustainment training plans, instructor certification programs, and ongoing advisory reach-back for continued capability growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section team" id="team">
+  <div class="section-header fade-in">
+    <div class="section-label">Who We Are</div>
+    <div class="section-title">Leadership</div>
+    <p class="section-desc">Our cadre comprises career special operations professionals with extensive combat experience and institutional expertise.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card fade-in">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&fit=crop" alt="Team Member">
+      <div class="team-overlay">
+        <div class="team-name">Jon Harkins</div>
+        <div class="team-role">Chief Executive Officer</div>
+        <div class="team-bio">Career Special Forces NCO with multiple combat tours and extensive experience in ASOT and SOF training development.</div>
+      </div>
+    </div>
+    <div class="team-card fade-in">
+      <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80&fit=crop" alt="Team Member">
+      <div class="team-overlay">
+        <div class="team-name">Rich Cullen</div>
+        <div class="team-role">VP, Training Operations</div>
+        <div class="team-bio">Former senior NCO with 20+ years in Army Special Operations and training development roles.</div>
+      </div>
+    </div>
+    <!-- <div class="team-card fade-in">
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80&fit=crop" alt="Team Member">
+      <div class="team-overlay">
+        <div class="team-name">[Director of Operations]</div>
+        <div class="team-role">VP, Operations & Programs</div>
+        <div class="team-bio">Veteran operational planner with deep expertise in joint and combined SOF operations.</div>
+      </div>
+    </div>
+    <div class="team-card fade-in">
+      <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80&fit=crop" alt="Team Member">
+      <div class="team-overlay">
+        <div class="team-name">[Business Development]</div>
+        <div class="team-role">VP, Business Development</div>
+        <div class="team-bio">Defense industry professional with proven track record in government contracting and strategic growth.</div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<!-- DIFFERENTIATORS -->
+<section class="section diff" id="differentiators">
+  <div class="section-header fade-in">
+    <div class="section-label">Why Panacea</div>
+    <div class="section-title">Our Edge</div>
+  </div>
+  <div class="diff-grid">
+    <div class="diff-item fade-in">
+      <h4>100% SOF-Pedigreed Cadre</h4>
+      <p>Every instructor and advisor holds verifiable special operations credentials with recent, relevant operational experience. No filler personnel, no generic contractors.</p>
+    </div>
+    <div class="diff-item fade-in">
+      <h4>Doctrine-Current, Operationally Informed</h4>
+      <p>Our programs reflect the latest ARSOF doctrine, TTPs, and lessons learned — not outdated training models disconnected from the modern battlespace.</p>
+    </div>
+    <div class="diff-item fade-in">
+      <h4>Tailored, Not Templated</h4>
+      <p>Every engagement is custom-designed for the client's specific mission set, personnel readiness level, and operational environment. We don't deliver off-the-shelf solutions.</p>
+    </div>
+    <div class="diff-item fade-in">
+      <h4>Rapid Response Capability</h4>
+      <p>Our lean organizational structure and deep bench of subject matter experts allow us to stand up training teams and deploy to austere locations on compressed timelines.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info fade-in">
+      <div class="section-label">Get In Touch</div>
+      <h2>Request a<br>Capabilities Briefing</h2>
+      <p>Whether you're scoping a specific training requirement or exploring partnership opportunities, our team is ready to discuss how Panacea International can support your mission.</p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span>Email</span>
+            <a href="mailto:info@panaceaintl.com">info@panaceaintl.com</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span>Headquarters</span>
+            <p>Fayetteville, North Carolina</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span>Availability</span>
+            <p>CONUS & OCONUS Operations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form fade-in" id="inquiry-form" onsubmit="return handleInquirySubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <label>Organization</label>
+          <input type="text" name="organization" placeholder="Unit / Agency / Company">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="name@mail.mil" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="(000) 000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Area of Interest</label>
+        <select name="area">
+          <option value="">Select a capability area...</option>
+          <option>Advanced Marksmanship / CQB</option>
+          <option>Small Unit Tactics</option>
+          <option>Partner Force Development</option>
+          <option>Operational Advisory</option>
+          <option>Combat Medical / TCCC</option>
+          <option>Force Modernization</option>
+          <option>Multiple / Custom Requirement</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" placeholder="Briefly describe your training requirement or inquiry..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Submit Inquiry</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+    <img src="PI_Logo(Gold-Transparent).png" alt="Panacea International Logo" height="50" loading="eager" />
+      <p>Elite special operations training, advisory services, and capability development for the U.S. Army and allied forces.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Capabilities</h4>
+      <a href="#capabilities">Marksmanship & CQB</a>
+      <a href="#capabilities">Small Unit Tactics</a>
+      <a href="#capabilities">Partner Force Dev</a>
+      <a href="#capabilities">Operational Advisory</a>
+      <a href="#capabilities">Combat Medical</a>
+      <a href="#capabilities">Force Modernization</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#mission">Our Mission</a>
+      <a href="#team">Leadership</a>
+      <a href="#approach">Our Approach</a>
+      <a href="#differentiators">Why Panacea</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#contact">Contact Us</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">SAM.gov Profile</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Panacea International LLC. All rights reserved.</p>
+    <div class="footer-certs">
+      <span class="footer-cert">Veteran Owned</span>
+      <span class="footer-cert">SAM Registered</span>
+      <span class="footer-cert">CAGE Coded</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Inquiry form: open email to headquarters with formatted body
+function handleInquirySubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('inquiry-form');
+  const name = (form.querySelector('[name="name"]') || {}).value || '';
+  const organization = (form.querySelector('[name="organization"]') || {}).value || '';
+  const email = (form.querySelector('[name="email"]') || {}).value || '';
+  const phone = (form.querySelector('[name="phone"]') || {}).value || '';
+  const area = (form.querySelector('[name="area"]') || {}).value || '';
+  const message = (form.querySelector('[name="message"]') || {}).value || '';
+  const subject = 'Website Inquiry' + (name ? ' from ' + name : '');
+  const body = [
+    'Name: ' + name,
+    'Organization: ' + organization,
+    'Email: ' + email,
+    'Phone: ' + phone,
+    'Area of Interest: ' + area,
+    '',
+    'Message:',
+    message
+  ].join('\n');
+  const mailto = 'mailto:headquarters@panaceainternational.org?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  window.location.href = mailto;
+  return false;
+}
+
+// Scroll-based nav
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
