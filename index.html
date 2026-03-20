@@ -641,7 +641,6 @@ body {
   transition: all 0.3s;
 }
 .form-submit:hover { background: #d4af5a; transform: translateY(-2px); }
-
 /* ═══════════════════ FOOTER ═══════════════════ */
 .footer {
   background: var(--bg-secondary);
@@ -1002,7 +1001,7 @@ body {
         </div>
       </div>
     </div>
-    <form class="contact-form fade-in" id="inquiry-form" onsubmit="return handleInquirySubmit(event)">
+    <form class="contact-form fade-in" id="inquiry-form" action="#" method="get">
       <div class="form-row">
         <div class="form-group">
           <label>Name</label>
@@ -1088,30 +1087,36 @@ body {
 
 <script>
 // Inquiry form: open email to headquarters with formatted body
-function handleInquirySubmit(e) {
-  e.preventDefault();
+(function () {
   const form = document.getElementById('inquiry-form');
-  const name = (form.querySelector('[name="name"]') || {}).value || '';
-  const organization = (form.querySelector('[name="organization"]') || {}).value || '';
-  const email = (form.querySelector('[name="email"]') || {}).value || '';
-  const phone = (form.querySelector('[name="phone"]') || {}).value || '';
-  const area = (form.querySelector('[name="area"]') || {}).value || '';
-  const message = (form.querySelector('[name="message"]') || {}).value || '';
-  const subject = 'Website Inquiry' + (name ? ' from ' + name : '');
-  const body = [
-    'Name: ' + name,
-    'Organization: ' + organization,
-    'Email: ' + email,
-    'Phone: ' + phone,
-    'Area of Interest: ' + area,
-    '',
-    'Message:',
-    message
-  ].join('\n');
-  const mailto = 'mailto:headquarters@panaceainternational.org?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-  window.location.href = mailto;
-  return false;
-}
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = (form.querySelector('[name="name"]') || {}).value || '';
+    const organization = (form.querySelector('[name="organization"]') || {}).value || '';
+    const email = (form.querySelector('[name="email"]') || {}).value || '';
+    const phone = (form.querySelector('[name="phone"]') || {}).value || '';
+    const area = (form.querySelector('[name="area"]') || {}).value || '';
+    const message = (form.querySelector('[name="message"]') || {}).value || '';
+    const subject = 'Website Inquiry' + (name ? ' from ' + name : '');
+    const body = [
+      'Name: ' + name,
+      'Organization: ' + organization,
+      'Email: ' + email,
+      'Phone: ' + phone,
+      'Area of Interest: ' + area,
+      '',
+      'Message:',
+      message
+    ].join('\n');
+    const mailto = 'mailto:headquarters@panaceainternational.org?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    // Most compatible cross-browser way to invoke mailto is navigation.
+    // Programmatic <a>.click() is blocked in some Safari/iOS and hardened settings.
+    window.location.href = mailto;
+  });
+})();
 
 // Scroll-based nav
 const nav = document.getElementById('nav');
